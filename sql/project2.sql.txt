@@ -1,0 +1,38 @@
+-- Create the Admin Table
+CREATE TABLE Admin (
+  Login  char(15) PRIMARY KEY,
+  Passwd char(60),
+  Type   ENUM ('SuperAdmin', 'CategoryAdmin')
+);
+
+-- Create the Category Table
+CREATE TABLE Category (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  Name  char(30),
+  Admin char(15) REFERENCES Admin (Login),
+  PRIMARY KEY (Id)
+);
+
+-- Create the Image Table
+CREATE TABLE Image (
+  Id int(11) NOT NULL AUTO_INCREMENT,
+  Category char(15) REFERENCES Category (Name),
+  Description char(255),
+  Location varchar(255) NOT NULL,
+  PRIMARY KEY (Id)
+);
+
+-- Create Logging Table
+CREATE TABLE Logging (
+    Id int(11) NOT NULL AUTO_INCREMENT,
+    Login  char(15),
+    Passwd char(60),
+    IP char(60),
+    UserHost char(60),
+    LoginDate char(60),
+    LoginTime char(60),
+    UserAgent char(255),
+    Success BOOLEAN,
+    PRIMARY KEY (Id)
+);
+
